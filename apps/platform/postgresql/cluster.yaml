@@ -1,0 +1,17 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: curriculum-pg
+  namespace: databases
+spec:
+  instances: 1
+  storage:
+    size: 5Gi
+    storageClass: local-path
+
+  bootstrap:
+    initdb:
+      database: postgres
+      owner: curriculum
+      secret:
+        name: curriculum-pg-app

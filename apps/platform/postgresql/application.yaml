@@ -3,18 +3,14 @@ kind: Application
 metadata:
   name: postgresql
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
-  sources:
-    - repoURL: oci://registry-1.docker.io/bitnamicharts
-      chart: postgresql
-      targetRevision: 16.7.26
-      helm:
-        valueFiles:
-          - $values/apps/platform/postgresql/values.yaml
-    - repoURL: https://github.com/opsdash/infrastructure.git
-      targetRevision: main
-      ref: values
+  source:
+    repoURL: https://github.com/opsdash/infrastructure.git
+    targetRevision: main
+    path: apps/platform/postgresql
   destination:
     server: https://kubernetes.default.svc
     namespace: databases
