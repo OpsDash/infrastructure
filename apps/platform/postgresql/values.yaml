@@ -1,0 +1,25 @@
+auth:
+  username: curriculum
+  database: postgres
+  existingSecret: postgresql-credentials
+  secretKeys:
+    adminPasswordKey: postgres-password
+    userPasswordKey: password
+
+primary:
+  persistence:
+    enabled: true
+    size: 5Gi
+    storageClass: local-path
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+
+  service:
+    type: ClusterIP
+    ports:
+      postgresql: 5432
